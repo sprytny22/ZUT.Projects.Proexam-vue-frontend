@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from  'vue-router'
 import Home from '../components/HelloWorld.vue'
-import Users from '../components/Users'
-import Groups from '../components/Groups'
-import Exams from '../components/Exams'
+import Users from '../components/User/Users'
+import Groups from '../components/Group/Groups'
+import Exams from '../components/Exam/Exams'
+import UsersAdd from '../components/User/UsersAdd'
+import GroupUsersList from "@/components/Group/GroupUsersList";
 
 
 Vue.use(VueRouter);
@@ -20,9 +22,19 @@ const routes = [
         component: Users
     },
     {
+        path: "/users/add",
+        name: "usersAdd",
+        component: UsersAdd
+    },
+    {
         path: "/groups",
         name: "groups",
         component: Groups
+    },
+    {
+        path: "/groups/list",
+        name: "groupUsersList",
+        component: GroupUsersList
     },
     {
         path: "/exams",

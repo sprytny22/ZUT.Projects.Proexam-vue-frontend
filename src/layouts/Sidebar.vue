@@ -5,7 +5,6 @@
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        background-color="#FEFEF2"
         text-color="#A46E56"
         active-text-color="#fbb788"
         :router="true">
@@ -27,7 +26,7 @@
 
 <script>
 export default {
-name: "Navbar"
+name: "Sidebar"
 }
 </script>
 
