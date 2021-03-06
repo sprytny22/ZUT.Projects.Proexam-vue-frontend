@@ -5,6 +5,7 @@ import Users from '../components/User/Users'
 import Groups from '../components/Group/Groups'
 import Exams from '../components/Exam/Exams'
 import UsersAdd from '../components/User/UsersAdd'
+import ExamAdd from '../components/Exam/ExamAdd'
 import GroupUsersList from "@/components/Group/GroupUsersList";
 
 
@@ -40,6 +41,11 @@ const routes = [
         path: "/exams",
         name: "exams",
         component: Exams
+    },
+    {
+        path: "/examsAdd",
+        name: "examsAdd",
+        component: ExamAdd
     },
 ]
 

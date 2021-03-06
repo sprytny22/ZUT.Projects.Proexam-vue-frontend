@@ -3,8 +3,6 @@
     <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
         text-color="#A46E56"
         active-text-color="#fbb788"
         :router="true">
