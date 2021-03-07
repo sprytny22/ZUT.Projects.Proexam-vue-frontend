@@ -1,11 +1,12 @@
-import { getExam } from '../../api/exam';
+import { getExams } from '../../api/exam';
+import { fixExamData } from '../../helpers'
 
 export default {
     state: {
         exams: []
     },
     getters: {
-        EXAMS: state => state.exams
+        EXAMS: state => fixExamData(state.exams)
     },
     mutations: {
         SET_EXAMS(state, payload) {
@@ -14,9 +15,9 @@ export default {
     },
     actions: {
         async GET_EXAMS({commit}) {
-            const {exams} = await getExam();
+            const exams = await getExams();
 
-            commit('SET_TESTS', exams)
+            commit('SET_EXAMS', exams)
         }
     }
 }

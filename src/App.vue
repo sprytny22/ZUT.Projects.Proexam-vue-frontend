@@ -37,7 +37,6 @@ body {
 #app {
   width: 100%;
 }
-
 #wrapper {
   margin: 20px;
 }

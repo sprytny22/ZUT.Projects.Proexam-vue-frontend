@@ -5,6 +5,9 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import store from "./store/store"
+import moment from 'moment';
+
+moment.locale('pl');
 
 Vue.config.productionTip = false
 

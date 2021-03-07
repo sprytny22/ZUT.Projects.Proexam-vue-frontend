@@ -7,7 +7,7 @@
             <el-col :span="12">
                 <el-form ref="form" label-width="120px">
                     <el-form-item label="Nazwa:">
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.title"></el-input>
                     </el-form-item>
                     <el-form-item label="Data startu:">
                         <el-date-picker v-model="form.start"
@@ -15,9 +15,15 @@
                                         placeholder="Select date and time">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="Czas:">
-                        <el-input v-model="form.time" ></el-input>
+                    <el-form-item label="Data konca:">
+                        <el-date-picker v-model="form.end"
+                                        type="datetime"
+                                        placeholder="Select date and time">
+                        </el-date-picker>
                     </el-form-item>
+<!--                    <el-form-item label="Czas:">-->
+<!--                        <el-input v-model="form.time" ></el-input>-->
+<!--                    </el-form-item>-->
                     <el-form-item label="Test:">
                         <el-select v-model="form.test" placeholder="Nazwa testu">
                             <el-option v-for="test in tests"
@@ -28,7 +34,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="Użytkownik:">
-                        <el-select v-model="form.users" placeholder="Nazwa użytkownika">
+                        <el-select v-model="form.users" multiple placeholder="Nazwa użytkownika">
                             <el-option v-for="user in users"
                                        :key="user.id"
                                        :label="user.email"
@@ -47,15 +53,12 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { createExam } from '../../api/exam';
 
     export default {
         name: "ExamAdd",
         computed: {
-            ...mapActions({
-                submitExam: 'SET_EXAMS'
-            }),
             ...mapGetters({
                 tests: 'TESTS',
                 users: 'USERS'
@@ -66,7 +69,7 @@
                 form: {
                     title: '',
                     start: '',
-                    time: '',
+                    end: '',
                     test: '',
                     users: [],
                 },
@@ -78,22 +81,20 @@
             this.$store.dispatch("GET_USERS")
         },
         methods: {
-            async onSubmit() {
+            onSubmit() {
                 console.log(this.form);
                 try {
                     this.loading = true;
-                    await createExam(this.form);
+                    createExam(this.form);
 
-                    this.$message({
-                        message: 'Congrats, this is a success message.',
-                        type: 'success'
-                    });
+                    this.$message.success('Created!');
                 } catch (error) {
                     this.$message.error('Oops, coś poszło nie tak.');
-                    //throw new Error('View name is required!');
                 } finally {
                     this.loading = false;
                 }
+
+                this.$router.push('exams');
             }
         }
     }
