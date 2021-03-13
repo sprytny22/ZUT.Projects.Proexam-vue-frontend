@@ -82,7 +82,6 @@
         },
         methods: {
             onSubmit() {
-                console.log(this.form);
                 try {
                     this.loading = true;
                     createExam(this.form);
