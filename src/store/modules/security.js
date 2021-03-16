@@ -1,5 +1,6 @@
 import { getToken, getDetails } from '../../api/security';
 import axios from "axios";
+import Vue from 'vue';
 
 export default {
     state: {
@@ -13,6 +14,20 @@ export default {
         LOGGED_IN: state => state.logged_in,
         USER: state => state.user,
         ROLES: state => state.roles,
+
+        isGranted: state => currentRole => {
+
+            let hasRole = false;
+
+            state.roles.forEach(role => {
+                if (role === currentRole) {
+                    hasRole = true;
+                }
+            })
+
+            return hasRole;
+        }
+
     },
     mutations: {
         SET_TOKEN(state, token) {
@@ -27,11 +42,10 @@ export default {
         }
     },
     actions: {
-        async initToken({commit, state}, credentials) {
+        async initToken({commit, state, getters}, credentials) {
 
             const token = await getToken(credentials);
             commit('SET_TOKEN', token);
-            console.log(state.token);
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`
             axios.interceptors.response.use(
@@ -44,6 +58,13 @@ export default {
                     }
                 }
             )
+            Object.defineProperties(Vue.prototype, {
+                $isGranted: {
+                    get() {
+                        return getters.isGranted;
+                    },
+                },
+            });
 
             const details = await getDetails();
 

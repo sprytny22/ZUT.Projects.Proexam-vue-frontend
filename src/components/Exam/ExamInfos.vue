@@ -36,9 +36,10 @@
                     fixed="right"
                     label="Operations">
                 <template slot-scope="scope">
-                    <el-button v-if="enableVisable(scope.$index, 1)" @click="handleConfirm(scope.$index)" type="text" size="small">Potwierdz</el-button>
-                    <el-button v-if="enableVisable(scope.$index, 2)" @click="handleStart(scope.$index)" type="text" size="small">Rozpocznij</el-button>
-                    <el-button v-if="enableVisable(scope.$index, 3)" @click="handleWatch(scope.$index)" type="text" size="small">Ogladaj</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 1) && $isGranted('ROLE_EXAM')" @click="handleConfirm(scope.$index)" type="text" size="small">Potwierdz</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 2) && $isGranted('ROLE_EXAM')" @click="handleStart(scope.$index)" type="text" size="small">Rozpocznij</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_EXAM')" @click="handleWatch(scope.$index)" type="text" size="small">Ogladaj</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_USER')" @click="handleJoin(scope.$index)" type="text" size="small">Dołącz</el-button>
                     <el-button v-if="enableVisable(scope.$index, 4)" @click="handleResult(scope.$index)" type="text" size="small">Zobacz Rezultat</el-button>
                 </template>
             </el-table-column>
@@ -47,12 +48,15 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { confirmExam, startExam } from '../../api/exam';
+    import { mapGetters, mapActions } from 'vuex';
+    import { confirmExam, startExam, watchExam } from '../../api/exam';
 
     export default {
         name: "ExamInfos",
         computed: {
+            ...mapActions({
+                isGranted: 'isGranted'
+            }),
             ...mapGetters({
                 exams: 'EXAMS'
             }),
@@ -104,11 +108,12 @@
                 this.$store.dispatch("GET_EXAMS")
             },
             handleWatch(index) {
+                const id = this.exams[index].id;
                 this.checkType(index, 3)
 
                 try {
                     this.loading = true;
-
+                    watchExam(id);
 
                     this.$message.success('Created!');
                 } catch (error) {
@@ -118,6 +123,17 @@
                 }
 
                 this.$store.dispatch("GET_EXAMS")
+            },
+            async handleJoin(index) {
+                this.checkType(index, 3)
+                const exam = this.exams[index];
+
+                try {
+                    await this.$store.dispatch('START_EXAM', exam.id);
+                    this.$router.push('main');
+                } catch (error) {
+                    this.$message.error('Oops, coś poszło nie tak.')
+                }
             },
             handleResult(index) {
                 this.checkType(index, 4)
@@ -140,12 +156,11 @@
 
                 if (type !== buttonType) {
                     this.$message.error('Nie mozna potwierdzic tego egzaminu!');
-                    return;
                 }
             }
         },
         mounted () {
-            this.$store.dispatch("GET_EXAMS")
+            this.$store.dispatch("GET_EXAMS");
         }
     }
 </script>

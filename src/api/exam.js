@@ -16,7 +16,18 @@ export async function confirmExam(id) {
 }
 
 export async function startExam(id) {
-    const response = await axios.put(`/exam/start/${id}`);
-    return response;
+    const response = await axios.get(`/exam/start/${id}`);
+    return response.data;
 }
+
+export async function joinExam(id) {
+    const response = await axios.get(`/exam/join/${id}`);
+    return response.data;
+}
+
+export async function watchExam(id) {
+    const response = await axios.get(`/exam/watch/${id}`);
+    return response.data;
+}
+
 
