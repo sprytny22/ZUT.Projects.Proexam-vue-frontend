@@ -28,7 +28,8 @@
         data() {
             return {
                 answer: {
-                    uuid: null,
+                    answerId: null,
+                    type: 'open',
                     answer: null
                 },
                 checkboxMap: {
@@ -57,7 +58,7 @@
                 }
 
                 Object.assign(this.answer, {
-                    uuid: this.question.uuid,
+                    answerId: this.question.answerId,
                     answer: map
                 })
 

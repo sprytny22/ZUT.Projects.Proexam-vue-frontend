@@ -9,7 +9,7 @@
                     type="textarea"
                     :rows="2"
                     placeholder="Odpowiedz na pytanie"
-                    v-model="answerData"
+                    v-model="answer.answerData"
                     @change="handleChangedAnswer"
                 />
             </el-col>
@@ -29,7 +29,8 @@
         data () {
             return {
                 answer: {
-                    uuid: null,
+                    answerId: null,
+                    type: 'close',
                     answerData: ''
                 }
             }
@@ -37,7 +38,8 @@
         methods: {
             handleChangedAnswer(data) {
                 Object.assign(this.answer, {
-                    uuid: this.question.uuid,
+                    answerId: this.question.answerId,
+                    type: this.question.type,
                     answer: data
                 });
 

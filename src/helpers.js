@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export function fixExamData(rawExamData) {
-    let Exams = []
+    let Exams = [];
 
     rawExamData.forEach(item => {
         let status = '';

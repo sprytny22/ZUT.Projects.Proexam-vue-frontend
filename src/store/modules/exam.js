@@ -4,23 +4,33 @@ import { fixExamData } from '../../helpers'
 export default {
     state: {
         exams: [],
-        executed: null,
+        currentResultId: null,
+        currentExamName: null,
+        currentTestName: null,
         questions: []
     },
     getters: {
         EXAMS: state => fixExamData(state.exams),
-        EXECUTED: state => state.executed,
-        EXAM_QUESTIONS: state => state.questions,
+        CURRENT_RESULT_ID: state => state.currentResultId,
+        CURRENT_EXAM_NAME: state => state.currentExamName,
+        CURRENT_TEST_NAME: state => state.currentTestName,
+        CURRENT_QUESTIONS: state => state.questions,
     },
     mutations: {
         SET_EXAMS(state, payload) {
             state.exams = payload;
         },
-        SET_EXECUTED(state, payload) {
-            state.executed = payload;
+        SET_CURRENT_EXAM_NAME(state, payload) {
+            state.currentExamName = payload;
         },
-        SET_EXAM_QUESTIONS(state, payload) {
+        SET_CURRENT_TEST_NAME(state, payload) {
+            state.currentTestName = payload;
+        },
+        SET_CURRENT_QUESTIONS(state, payload) {
             state.questions = payload;
+        },
+        SET_CURRENT_RESULT(state, payload) {
+            state.currentResultId = payload;
         }
     },
     actions: {
@@ -36,8 +46,10 @@ export default {
                 throw Error('something goes wrong');
             }
 
-            commit('SET_EXECUTED', openedExam);
-            commit('SET_EXAM_QUESTIONS', openedExam.test.questions);
+            commit('SET_CURRENT_RESULT', openedExam.result);
+            commit('SET_CURRENT_EXAM_NAME', openedExam.exam);
+            commit('SET_CURRENT_TEST_NAME', openedExam.test);
+            commit('SET_CURRENT_QUESTIONS', openedExam.questions);
         }
     }
 }

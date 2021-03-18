@@ -36,9 +36,9 @@
                     fixed="right"
                     label="Operations">
                 <template slot-scope="scope">
-                    <el-button v-if="enableVisable(scope.$index, 1) && $isGranted('ROLE_EXAM')" @click="handleConfirm(scope.$index)" type="text" size="small">Potwierdz</el-button>
-                    <el-button v-if="enableVisable(scope.$index, 2) && $isGranted('ROLE_EXAM')" @click="handleStart(scope.$index)" type="text" size="small">Rozpocznij</el-button>
-                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_EXAM')" @click="handleWatch(scope.$index)" type="text" size="small">Ogladaj</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 1) && $isGranted('ROLE_EXAMER')" @click="handleConfirm(scope.$index)" type="text" size="small">Potwierdz</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 2) && $isGranted('ROLE_EXAMER')" @click="handleStart(scope.$index)" type="text" size="small">Rozpocznij</el-button>
+                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_EXAMER')" @click="handleWatch(scope.$index)" type="text" size="small">Ogladaj</el-button>
                     <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_USER')" @click="handleJoin(scope.$index)" type="text" size="small">Dołącz</el-button>
                     <el-button v-if="enableVisable(scope.$index, 4)" @click="handleResult(scope.$index)" type="text" size="small">Zobacz Rezultat</el-button>
                 </template>
@@ -49,7 +49,7 @@
 
 <script>
     import { mapGetters, mapActions } from 'vuex';
-    import { confirmExam, startExam, watchExam } from '../../api/exam';
+    import { confirmExam, startExam } from '../../api/exam';
 
     export default {
         name: "ExamInfos",
@@ -107,22 +107,12 @@
 
                 this.$store.dispatch("GET_EXAMS")
             },
-            handleWatch(index) {
-                const id = this.exams[index].id;
+            async handleWatch(index) {
                 this.checkType(index, 3)
+                const exam = this.exams[index];
 
-                try {
-                    this.loading = true;
-                    watchExam(id);
-
-                    this.$message.success('Created!');
-                } catch (error) {
-                    this.$message.error('Oops, coś poszło nie tak.');
-                } finally {
-                    this.loading = false;
-                }
-
-                this.$store.dispatch("GET_EXAMS")
+                await this.$store.dispatch('START_EXAM', exam.id);
+                this.$router.push('watch');
             },
             async handleJoin(index) {
                 this.checkType(index, 3)
