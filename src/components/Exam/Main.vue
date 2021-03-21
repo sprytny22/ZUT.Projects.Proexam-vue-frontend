@@ -1,10 +1,10 @@
 <template>
     <div>
         <el-row>
-            <h1>Egzamin testowy!</h1>
+            <h1>{{examName}}!</h1>
         </el-row>
         <el-row>
-            <el-col :span="24" v-for="question in questions" :key="question.uuid">
+            <el-col :span="24" v-for="question in questions" :key="question.answerId">
                 <Question
                         v-if="question.type === 'open'"
                         :key="question.answerId"

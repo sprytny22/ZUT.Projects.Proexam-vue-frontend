@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from  'vue-router'
 import Home from '../components/HelloWorld.vue'
 import Users from '../components/User/Users'
+import Tests from '../components/Test/Tests'
+import TestAdd from '../components/Test/TestAdd'
+import QuestionAdd from '../components/Question/QuestionAdd'
+import Questions from '../components/Question/Questions'
 import Groups from '../components/Group/Groups'
 import Exams from '../components/Exam/Exams'
 import UsersAdd from '../components/User/UsersAdd'
@@ -23,6 +27,26 @@ const routes = [
         path: "/users",
         name: "users",
         component: Users
+    },
+    {
+        path: "/tests",
+        name: "tests",
+        component: Tests
+    },
+    {
+        path: "/test/add",
+        name: "testAdd",
+        component: TestAdd
+    },
+    {
+        path: "/questions",
+        name: "questions",
+        component: Questions
+    },
+    {
+        path: "/question/add",
+        name: "questionAdd",
+        component: QuestionAdd
     },
     {
         path: "/users/add",

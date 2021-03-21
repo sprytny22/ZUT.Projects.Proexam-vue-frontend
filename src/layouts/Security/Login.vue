@@ -1,16 +1,29 @@
 <template>
-    <div>
-        <el-form ref="form" :model="form" label-width="120px">
-            <el-form-item label="Username/Email">
-                <el-input v-model="form.username"></el-input>
-            </el-form-item>
-            <el-form-item label="password">
-                <el-input v-model="form.password"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">Log-in</el-button>
-            </el-form-item>
-        </el-form>
+    <div class="login-page">
+        <el-row type="flex" class="row-bg margin-bot-20" justify="center">
+            <h1>PROEXAM</h1>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="center">
+            <el-col :span="8">
+                <el-card>
+                    <el-form v-show="show" ref="form" :model="form">
+                        <el-form-item label="Username/Email">
+                            <el-input v-model="form.username" placeholder="Email"></el-input>
+                        </el-form-item>
+                        <el-form-item label="Hasło">
+                            <el-input v-model="form.password" placeholder="Hasło"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-checkbox>Zapamiętaj mnie</el-checkbox>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" class="nav-button" @click="onSubmit">Zaloguj</el-button>
+                            <el-button type="info" class="nav-button" @click="show = !show">Zajerestruj się</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-card>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -23,8 +36,12 @@
                     username: '',
                     password: ''
                 },
-                loading: false
+                loading: false,
+                show: false,
             }
+        },
+        mounted() {
+            this.show = !this.show;
         },
         methods: {
             async onSubmit() {
@@ -48,5 +65,11 @@
 </script>
 
 <style scoped>
+    .login-page {
+        font-family: "Lato-Light";
+    }
+    .margin-bot-20 {
+        margin-bottom: 20px;
+    }
 
 </style>

@@ -7,29 +7,39 @@
         <el-col :span="4">
           <el-row>
             <div class="exam-logo">
-              <h3>PROEXAM</h3>
+              <h3><b>PROEXAM</b></h3>
             </div>
           </el-row>
-          <Sidebar/>
+          <el-row>
+            <Sidebar/>
+          </el-row>
         </el-col>
         <el-col :span="20" id="bdy">
+          <Navbar />
           <div id="wrapper">
-            <router-view></router-view>
+            <el-row class="top-buttons">
+              <ActionsNavbar />
+            </el-row>
+            <router-view />
           </div>
-        </el-col>`
+        </el-col>
       </el-row>
     </div>
 </template>
 
 <script>
 import Sidebar from './layouts/Sidebar.vue'
+import Navbar from './layouts/Navbar.vue'
 import Login from './layouts/Security/Login'
+import ActionsNavbar from './components/Common/ActionsNavbar'
 
 export default {
   name: 'App',
   components: {
     Sidebar,
-    Login
+    Navbar,
+    Login,
+    ActionsNavbar
   }
 }
 </script>
@@ -40,7 +50,8 @@ body {
 }
 
 #app {
-  width: 100%;
+    font-family: "Lato-Light";
+    width: 100%;
 }
 #wrapper {
   margin: 20px;
@@ -59,6 +70,19 @@ body {
 
 .exams-buttons {
   margin-right: 20px;
+}
+
+@font-face {
+    font-family: "Lato-Light";
+    src: url("../fonts/Lato-Light.ttf");
+}
+
+.nav-button{
+  font-size: 13px;
+  font-weight: normal;
+}
+.nav-buttons {
+  float: right;
 }
 
 </style>

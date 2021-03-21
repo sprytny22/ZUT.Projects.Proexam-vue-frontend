@@ -2,9 +2,7 @@
   <div>
     <el-menu
         default-active="2"
-        class="el-menu-vertical-demo"
-        text-color="#A46E56"
-        active-text-color="#fbb788"
+        class="sidebar"
         :router="true">
       <el-menu-item index="/users" :route="{name: 'users'}">
         <span>Użytkownicy</span>
@@ -29,4 +27,7 @@ name: "Sidebar"
 </script>
 
 <style>
+  .sidebar {
+    height: 100%;
+  }
 </style>

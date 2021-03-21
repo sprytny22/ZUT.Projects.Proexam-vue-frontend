@@ -5,9 +5,9 @@
         </el-row>
         <el-row>
             <el-col :span="12">
-                <el-form ref="form" label-width="120px">
-                    <el-form-item label="Nazwa:">
-                        <el-input v-model="form.title"></el-input>
+                <el-form ref="form">
+                    <el-form-item>
+                        <el-input v-model="form.title" placeholder="Nazwa egzaminu"></el-input>
                     </el-form-item>
                     <el-form-item label="Data startu:">
                         <el-date-picker v-model="form.start"
@@ -24,8 +24,8 @@
 <!--                    <el-form-item label="Czas:">-->
 <!--                        <el-input v-model="form.time" ></el-input>-->
 <!--                    </el-form-item>-->
-                    <el-form-item label="Test:">
-                        <el-select v-model="form.test" placeholder="Nazwa testu">
+                    <el-form-item>
+                        <el-select v-model="form.test" placeholder="Test">
                             <el-option v-for="test in tests"
                                        :key="test.id"
                                        :label="test.name"
@@ -33,18 +33,18 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="Użytkownik:">
-                        <el-select v-model="form.users" multiple placeholder="Nazwa użytkownika">
+                    <el-form-item>
+                        <el-select v-model="form.users" multiple placeholder="Użytkownicy">
                             <el-option v-for="user in users"
                                        :key="user.id"
                                        :label="user.email"
                                        :value="user.id">
-                            </el-option>>
+                            </el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="onSubmit">Dodaj</el-button>
-                        <el-button>Cancel</el-button>
+                        <el-button type="primary" class="nav-button" @click="onSubmit">Dodaj</el-button>
+                        <el-button class="nav-button">Cancel</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>

@@ -8,13 +8,13 @@ export default {
         QUESTIONS: state => state.questions
     },
     mutations: {
-        SET_QUESTIONS({state}, {payload}) {
+        SET_QUESTIONS(state, payload) {
             state.questions = payload;
         }
     },
     actions: {
         async GET_QUESTIONS({commit}) {
-            const {questions} = await getQuestions();
+            const questions = await getQuestions();
 
             commit('SET_QUESTIONS', questions)
         }
