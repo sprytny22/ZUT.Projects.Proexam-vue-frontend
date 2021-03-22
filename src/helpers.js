@@ -9,7 +9,6 @@ export function fixExamData(rawExamData) {
 
         let startDate = moment(item.startTime).format("LL");
         let startTime = moment(item.startTime).format("LT");
-        let endTime = moment(item.endTime).format("LT");
 
         switch (item.status) {
             case 'NON_CONFIRM':
@@ -39,7 +38,8 @@ export function fixExamData(rawExamData) {
             title: item.title,
             startDate: startDate,
             startTime: startTime,
-            endTime: endTime,
+            time: item.time,
+            pass: item.pass,
             status: status,
             type: type
         })

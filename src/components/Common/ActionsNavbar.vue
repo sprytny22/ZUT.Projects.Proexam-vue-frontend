@@ -23,6 +23,8 @@
                 </router-link>
             </el-col>
             <el-col :span="4" class="nav-buttons">
+                    <el-button plain class="nav-button" icon="el-icon-loading" v-if="loading"></el-button>
+                    <el-button plain class="nav-button" icon="el-icon-refresh-right" @click="refreshExams" v-else></el-button>
                     <el-button plain class="nav-button" @click="$router.go(-1)">Wróć</el-button>
             </el-col>
         </el-row>
@@ -32,6 +34,23 @@
 <script>
 export default {
     name: "ActionsNavbar",
+    data() {
+        return {
+            loading: false
+        }
+    },
+    methods: {
+        async refreshExams() {
+            this.loading = true;
+            await this.$store.dispatch("GET_EXAMS");
+            await this.sleep(400);
+            this.loading = false;
+        },
+        sleep(time){
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
+
+    }
 }
 </script>
 

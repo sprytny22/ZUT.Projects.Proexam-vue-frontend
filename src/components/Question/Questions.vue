@@ -1,24 +1,40 @@
 <template>
     <div>
-        <el-table
-                :data="questions"
-                style="width: 100%">
-            <el-table-column
-                    prop="id"
-                    label="id"
-                    width="50">
-            </el-table-column>
-            <el-table-column
-                    prop="content"
-                    label="Treść"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    fixed="right"
-                    prop="category"
-                    label="Kategoria">
-            </el-table-column>
-        </el-table>
+        <el-card class="box-card my-box-card" v-for="question in questions" :key="question.id">
+            <el-row>
+                <el-col :span="2" align="left" >
+                    <el-row>
+                        <h4>{{question.id}}</h4>
+                    </el-row>
+                </el-col>
+                <el-col :span="22">
+                    <el-row>
+                        Treść pytania: {{question.content}}
+                    </el-row>
+                    <el-row>
+                        Kategoria: {{question.category}}
+                    </el-row>
+                    <el-row>
+                        Typ: {{question.type === 'open' ? 'Otwarte' : 'Zamkniete'}}
+                    </el-row>
+                    <el-row>
+                        <el-collapse>
+                            <el-collapse-item title="Odpowiedzi" name="1">
+                                <div>A: {{question.a}}</div>
+                                <div>B: {{question.b}}</div>
+                                <div>C: {{question.c}}</div>
+                                <div>D: {{question.d}}</div>
+                                <div>Poprawna: {{question.correct}}</div>
+                            </el-collapse-item>
+                        </el-collapse>
+                    </el-row>
+                </el-col>
+            </el-row>
+        </el-card>
+        <el-button-group class="switch-page">
+            <el-button plain class="nav-button" icon="el-icon-arrow-left"></el-button>
+            <el-button plain class="nav-button" ><i class="el-icon-arrow-right"></i></el-button>
+        </el-button-group>
     </div>
 </template>
 

@@ -15,15 +15,12 @@
                                         placeholder="Select date and time">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="Data konca:">
-                        <el-date-picker v-model="form.end"
-                                        type="datetime"
-                                        placeholder="Select date and time">
-                        </el-date-picker>
+                    <el-form-item label="Czas: (w minutach)">
+                        <el-input v-model="form.time"></el-input>
                     </el-form-item>
-<!--                    <el-form-item label="Czas:">-->
-<!--                        <el-input v-model="form.time" ></el-input>-->
-<!--                    </el-form-item>-->
+                    <el-form-item label="Próg zdania: (w procentach)">
+                        <el-input v-model="form.pass"></el-input>
+                    </el-form-item>
                     <el-form-item>
                         <el-select v-model="form.test" placeholder="Test">
                             <el-option v-for="test in tests"
@@ -71,6 +68,8 @@
                     start: '',
                     end: '',
                     test: '',
+                    pass: 33,
+                    time: 0,
                     users: [],
                 },
                 loading: false
@@ -82,10 +81,12 @@
         },
         methods: {
             onSubmit() {
-                try {
-                    this.loading = true;
-                    createExam(this.form);
+                this.loading = true;
+                this.form.time = parseInt(this.form.time, 10)
+                this.form.pass = parseInt(this.form.pass, 10)
 
+                try {
+                    createExam(this.form);
                     this.$message.success('Created!');
                 } catch (error) {
                     this.$message.error('Oops, coś poszło nie tak.');

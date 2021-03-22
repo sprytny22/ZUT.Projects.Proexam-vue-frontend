@@ -19,16 +19,23 @@
 
     export default {
         name: "Navbar",
-        computed: {
-            currentTime: () => {
-                return moment().format('LTS');
+        data() {
+            return {
+                currentTime: moment().format('LTS'),
+                timer: '',
             }
         },
         methods: {
             handleLogout() {
-                console.log('logout');
-                moment()
+                this.$store.dispatch('logout');
+                this.$message.success('Wylogowano!');
+            },
+            refreshMoment() {
+                this.currentTime = moment().format('LTS');
             }
+        },
+        created() {
+            this.timer = setInterval(this.refreshMoment, 1000)
         }
     }
 </script>

@@ -1,58 +1,5 @@
 <template>
-    <div>
-<!--        <el-table-->
-<!--                :data="exams"-->
-<!--                style="width: 100%">-->
-<!--            <el-table-column-->
-<!--                    prop="id"-->
-<!--                    label="id"-->
-<!--                    width="50">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    prop="title"-->
-<!--                    label="Nazwa"-->
-<!--                    width="150">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    prop="status"-->
-<!--                    label="Status"-->
-<!--                    width="150">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    prop="startDate"-->
-<!--                    label="Data otwarcia"-->
-<!--                    width="150">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    prop="startTime"-->
-<!--                    label="czas startu"-->
-<!--                    width="150">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    prop="endTime"-->
-<!--                    label="czas zamkniecia">-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                    fixed="right"-->
-<!--                    label="Operations">-->
-<!--                <template slot-scope="scope">-->
-<!--                    <el-button v-if="enableVisable(scope.$index, 1) && $isGranted('ROLE_EXAMER')" @click="handleConfirm(scope.$index)" type="text" size="small">Potwierdz</el-button>-->
-<!--                    <el-button v-if="enableVisable(scope.$index, 2) && $isGranted('ROLE_EXAMER')" @click="handleStart(scope.$index)" type="text" size="small">Rozpocznij</el-button>-->
-<!--                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_EXAMER')" @click="handleWatch(scope.$index)" type="text" size="small">Ogladaj</el-button>-->
-<!--                    <el-button v-if="enableVisable(scope.$index, 3) && $isGranted('ROLE_USER')" @click="handleJoin(scope.$index)" type="text" size="small">Dołącz</el-button>-->
-<!--                    <el-button v-if="enableVisable(scope.$index, 4)" @click="handleResult(scope.$index)" type="text" size="small">Zobacz Rezultat</el-button>-->
-<!--                </template>-->
-<!--            </el-table-column>-->
-<!--        </el-table>-->
-
-<!--        id: item.examId,-->
-<!--        title: item.title,-->
-<!--        startDate: startDate,-->
-<!--        startTime: startTime,-->
-<!--        endTime: endTime,-->
-<!--        status: status,-->
-<!--        type: type-->
-
+    <div v-loading.fullscreen.lock="loading">
         <el-card class="box-card my-box-card" v-for="exam in exams" :key="exam.id">
             <el-row>
                 <el-col :span="2" align="left" >
@@ -65,13 +12,18 @@
                         {{exam.title}}
                     </el-row>
                     <el-row>
-                        Data otwarcia egzaminu: <b>{{exam.startDate}}/{{exam.startTime}}</b>
+                        Data otwarcia egzaminu: {{exam.startDate}}/{{exam.startTime}}
                     </el-row>
                     <el-row>
-                        Status: {{exam.status}}
+                        <span>Status:</span>
+                        <span v-bind:style="statusColour(exam.status)"><b style="margin-left: 10px;">{{exam.status}}</b></span>
                     </el-row>
                     <el-row>
-                        Próg zdania: 70%
+                        Próg zdania: {{exam.pass}}%
+                    </el-row>
+                    <br/>
+                    <el-row>
+                        <b>Czas: {{exam.time}} minut</b>
                     </el-row>
                 </el-col>
                 <el-col :span="10" align="right">
@@ -106,6 +58,11 @@
                 exams: 'EXAMS'
             }),
         },
+        data() {
+            return {
+                loading: false,
+            }
+        },
         methods: {
             enableVisable(exam, buttonType) {
                 const type = exam.type;
@@ -116,29 +73,29 @@
 
                 return false;
             },
-            handleConfirm(exam) {
-                this.checkType(exam, 2)
+            async handleConfirm(exam) {
+                this.checkType(exam, 1)
 
                 try {
                     this.loading = true;
-                    confirmExam(exam.id);
+                    await confirmExam(exam.id);
 
                     this.$message.success('Created!');
                 } catch (error) {
-                    this.$message.error('Oops, coś poszło nie tak.');
+                    this.$message.error('Oops, coś poszło nie tak.'+error.message);
                 } finally {
                     this.loading = false;
                 }
 
                 this.$store.dispatch("GET_EXAMS")
             },
-            handleStart(exam) {
+            async handleStart(exam) {
                 this.checkType(exam, 2)
                 // check if user
 
                 try {
                     this.loading = true;
-                    startExam(exam.id);
+                    await startExam(exam.id);
 
                     this.$message.success('Created!');
                 } catch (error) {
@@ -186,7 +143,19 @@
                 if (type !== buttonType) {
                     this.$message.error('Nie mozna potwierdzic tego egzaminu!');
                 }
-            }
+            },
+            statusColour(status) {
+                switch (status) {
+                    case 'Nie potwierdzony':
+                        return 'color: red;';
+                    case 'Potwierdzony':
+                        return 'color: green;';
+                    case 'Trwa':
+                        return 'color: orange;';
+                    case 'Zakończony':
+                        return 'color: black;';
+                }
+            } ,
         },
         mounted () {
             this.$store.dispatch("GET_EXAMS");

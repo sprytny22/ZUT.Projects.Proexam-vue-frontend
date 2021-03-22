@@ -58,11 +58,13 @@ export default {
                     }
                 }
             )
+
             Object.defineProperties(Vue.prototype, {
                 $isGranted: {
                     get() {
                         return getters.isGranted;
                     },
+                    configurable: true
                 },
             });
 
@@ -70,6 +72,10 @@ export default {
 
             commit('SET_USER_DETAILS', details);
             commit('SET_LOGGED_IN', true);
+        },
+        logout({commit}) {
+            commit('SET_LOGGED_IN', false);
+            commit('SET_TOKEN', '');
         }
     }
 }
