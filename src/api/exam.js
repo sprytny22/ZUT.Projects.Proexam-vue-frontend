@@ -20,14 +20,19 @@ export async function startExam(id) {
     return response.data;
 }
 
+export async function watchList(id) {
+    const response = await axios.get(`/exam/watch-user/${id}`);
+    return response.data;
+}
+
 export async function joinExam(id) {
     const response = await axios.get(`/exam/join/${id}`);
     return response.data;
 }
 
-export async function watchExam(id) {
-    const response = await axios.get(`/exam/watch/${id}`);
-    return response.data;
+export async function watchExam(userId, examId) {
+    const response = await axios.get(`/exam/watch/${examId}/user/${userId}`);
+    return response;
 }
 
 export async function updateResult(id, data) {

@@ -1,4 +1,4 @@
-import { getExams, joinExam } from '../../api/exam';
+import { getExams, joinExam, watchList } from '../../api/exam';
 import { fixExamData } from '../../helpers'
 
 export default {
@@ -7,7 +7,9 @@ export default {
         currentResultId: null,
         currentExamName: null,
         currentTestName: null,
-        questions: []
+        questions: [],
+
+        watchExamUsers: null
     },
     getters: {
         EXAMS: state => fixExamData(state.exams),
@@ -15,6 +17,7 @@ export default {
         CURRENT_EXAM_NAME: state => state.currentExamName,
         CURRENT_TEST_NAME: state => state.currentTestName,
         CURRENT_QUESTIONS: state => state.questions,
+        WATCH_EXAM_USERS: state => state.watchExamUsers
     },
     mutations: {
         SET_EXAMS(state, payload) {
@@ -31,6 +34,9 @@ export default {
         },
         SET_CURRENT_RESULT(state, payload) {
             state.currentResultId = payload;
+        },
+        SET_WATCH_EXAM_USERS(state, payload) {
+            state.watchExamUsers = payload;
         }
     },
     actions: {
@@ -50,6 +56,12 @@ export default {
             commit('SET_CURRENT_EXAM_NAME', openedExam.exam);
             commit('SET_CURRENT_TEST_NAME', openedExam.test);
             commit('SET_CURRENT_QUESTIONS', openedExam.questions);
+        },
+        async GET_WATCH_EXAM_USERS({commit}, examId) {
+            const users = await watchList(examId);
+
+            console.log(users);
+            commit('SET_WATCH_EXAM_USERS', users.users);
         }
     }
 }

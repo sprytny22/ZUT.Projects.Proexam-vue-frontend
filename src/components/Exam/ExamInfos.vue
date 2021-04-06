@@ -109,8 +109,14 @@
             async handleWatch(exam) {
                 this.checkType(exam, 3);
 
-                await this.$store.dispatch('START_EXAM', exam.id);
-                this.$router.push('watch');
+                await this.$store.dispatch('GET_WATCH_EXAM_USERS', exam.id);
+                this.$router.push({
+                    name: 'watchList',
+                    params: {
+                        id: exam.id
+                    }
+                });
+
             },
             async handleJoin(exam) {
                 this.checkType(exam, 3)

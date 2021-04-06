@@ -1,18 +1,30 @@
 <template>
     <div>
-        <el-row>
-            <h3>{{question.content}}</h3>
-        </el-row>
-        <el-row>
-            <el-col :span="12">
-                <el-row>
-                    <el-col :span="3"><el-checkbox v-model="checkboxMap.A" @change="handleCheckedAnswer">A: {{question.A}}</el-checkbox></el-col>
-                    <el-col :span="3"><el-checkbox v-model="checkboxMap.B" @change="handleCheckedAnswer">B: {{question.B}}</el-checkbox></el-col>
-                    <el-col :span="3"><el-checkbox v-model="checkboxMap.C" @change="handleCheckedAnswer">C: {{question.C}}</el-checkbox></el-col>
-                    <el-col :span="3"><el-checkbox v-model="checkboxMap.D" @change="handleCheckedAnswer">D: {{question.D}}</el-checkbox></el-col>
-                </el-row>
-            </el-col>
-        </el-row>
+        <el-card class="box-card my-box-card" :key="question.content">
+            <el-row>
+                <h3>{{index+1}}. {{question.content}}</h3>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-row>
+                        <el-col :span="1"><el-checkbox v-model="checkboxMap.A" @change="handleCheckedAnswer"/></el-col>
+                        <el-col :span="20">A: {{question.A}}</el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="1"><el-checkbox v-model="checkboxMap.B" @change="handleCheckedAnswer"/></el-col>
+                        <el-col :span="20">A: {{question.B}}</el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="1"><el-checkbox v-model="checkboxMap.C" @change="handleCheckedAnswer"/></el-col>
+                        <el-col :span="20">A: {{question.C}}</el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="1"><el-checkbox v-model="checkboxMap.D" @change="handleCheckedAnswer"/></el-col>
+                        <el-col :span="20">A: {{question.D}}</el-col>
+                    </el-row>
+                </el-col>
+            </el-row>
+        </el-card>
     </div>
 </template>
 
@@ -21,6 +33,7 @@
         name: "Question",
         props: {
             question: null,
+            index: Number,
             updateResult: {
                 Function
             }
@@ -29,7 +42,7 @@
             return {
                 answer: {
                     answerId: null,
-                    type: 'open',
+                    type: 'close',
                     answer: null
                 },
                 checkboxMap: {

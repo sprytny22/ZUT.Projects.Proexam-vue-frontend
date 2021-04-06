@@ -1,19 +1,21 @@
 <template>
     <div>
-        <el-row>
-            <h3>{{question.content}}</h3>
-        </el-row>
-        <el-row>
-            <el-col :span="12">
-                <el-input
-                    type="textarea"
-                    :rows="2"
-                    placeholder="Odpowiedz na pytanie"
-                    v-model="answer.answerData"
-                    @change="handleChangedAnswer"
-                />
-            </el-col>
-        </el-row>
+        <el-card class="box-card my-box-card" :key="question.content">
+            <el-row>
+                <h3>{{index+1}}. {{question.content}}</h3>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder="Odpowiedz na pytanie"
+                        v-model="answer.answerData"
+                        @change="handleChangedAnswer"
+                    />
+                </el-col>
+            </el-row>
+        </el-card>
     </div>
 </template>
 
@@ -22,6 +24,7 @@
         name: "QuestionText",
         props: {
             question: null,
+            index: Number,
             updateResult: {
                 Function
             }
@@ -30,7 +33,7 @@
             return {
                 answer: {
                     answerId: null,
-                    type: 'close',
+                    type: 'open',
                     answerData: ''
                 }
             }

@@ -12,6 +12,7 @@ import UsersAdd from '../components/User/UsersAdd'
 import ExamAdd from '../components/Exam/ExamAdd'
 import Main from '../components/Exam/Main'
 import Watch from '../components/Exam/Watch'
+import WatchList from '../components/Exam/WatchList'
 import GroupUsersList from "@/components/Group/GroupUsersList";
 
 
@@ -79,9 +80,14 @@ const routes = [
         component: Main
     },
     {
-        path: "/watch",
+        path: "/watch/:examId/user/:userId",
         name: "watch",
         component: Watch
+    },
+    {
+        path: "/watchList/:id",
+        name: "watchList",
+        component: WatchList
     },
 ]
 

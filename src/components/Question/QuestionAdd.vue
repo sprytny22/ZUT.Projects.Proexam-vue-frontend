@@ -17,7 +17,7 @@
                         <el-radio v-model="form.type" @change="handleOpen" label="close">Zamknięte</el-radio>
                     </el-form-item>
                     <el-collapse v-model="form.type">
-                        <el-collapse-item name="open">
+                        <el-collapse-item name="close">
                             <el-form-item>
                                 <el-input v-model="form.a" placeholder="Treść odpowiedzi 'A'"></el-input>
                             </el-form-item>
@@ -60,7 +60,7 @@
                 loading: false,
                 opened: true,
                 form: {
-                    type: 'open',
+                    type: 'close',
                     content: '',
                     category: '',
                     a: '',

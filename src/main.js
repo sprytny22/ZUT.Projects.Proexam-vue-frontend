@@ -14,6 +14,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
+// axios.defaults.withCredentials = true;
 
 new Vue({
   router,

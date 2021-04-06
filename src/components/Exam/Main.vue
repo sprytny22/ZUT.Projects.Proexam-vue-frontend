@@ -1,18 +1,22 @@
 <template>
     <div>
         <el-row>
-            <h1>{{examName}}!</h1>
+            <el-col :span="12"><h3>{{examName}}</h3></el-col>
+            <el-col :span="6"><h3>Imie i nazwisko</h3></el-col>
+            <el-col :span="6"><h3>Czas</h3></el-col>
         </el-row>
         <el-row>
-            <el-col :span="24" v-for="question in questions" :key="question.answerId">
+            <el-col :span="24" v-for="(question, index) in questions" :key="question.answerId">
                 <Question
-                        v-if="question.type === 'open'"
+                        v-if="question.type === 'close'"
+                        :index = "index"
                         :key="question.answerId"
                         :question="question"
                         :update-result="updateAnswer"
                 />
                 <QuestionText
-                        v-if="question.type === 'close'"
+                        v-if="question.type === 'open'"
+                        :index = "index"
                         :key="question.answerId"
                         :question="question"
                         :update-result="updateAnswer"
