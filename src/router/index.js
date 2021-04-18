@@ -6,14 +6,13 @@ import Tests from '../components/Test/Tests'
 import TestAdd from '../components/Test/TestAdd'
 import QuestionAdd from '../components/Question/QuestionAdd'
 import Questions from '../components/Question/Questions'
-import Groups from '../components/Group/Groups'
 import Exams from '../components/Exam/Exams'
 import UsersAdd from '../components/User/UsersAdd'
 import ExamAdd from '../components/Exam/ExamAdd'
 import Main from '../components/Exam/Main'
 import Watch from '../components/Exam/Watch'
 import WatchList from '../components/Exam/WatchList'
-import GroupUsersList from "@/components/Group/GroupUsersList";
+import Admin from '../components/Admin/Admin';
 
 
 Vue.use(VueRouter);
@@ -55,16 +54,6 @@ const routes = [
         component: UsersAdd
     },
     {
-        path: "/groups",
-        name: "groups",
-        component: Groups
-    },
-    {
-        path: "/groups/list",
-        name: "groupUsersList",
-        component: GroupUsersList
-    },
-    {
         path: "/exams",
         name: "exams",
         component: Exams
@@ -89,6 +78,12 @@ const routes = [
         name: "watchList",
         component: WatchList
     },
+    {
+        path: "/admin",
+        name: "admin",
+        component: Admin
+    },
+    // admin
 ]
 
 const router = new VueRouter({

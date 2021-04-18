@@ -7,6 +7,8 @@ export default {
         logged_in: false,
         token: null,
         user: null,
+        name: null,
+        fullName: null,
         roles: []
     },
     getters: {
@@ -14,6 +16,8 @@ export default {
         LOGGED_IN: state => state.logged_in,
         USER: state => state.user,
         ROLES: state => state.roles,
+        USER_FULL_NAME: state => state.fullName,
+        
 
         isGranted: state => currentRole => {
 
@@ -39,6 +43,9 @@ export default {
         },
         SET_LOGGED_IN(state, logged_in) {
             state.logged_in = logged_in;
+        },
+        SET_FULL_NAME(state, name) {
+            state.fullName = name
         }
     },
     actions: {
@@ -71,6 +78,7 @@ export default {
             const details = await getDetails();
 
             commit('SET_USER_DETAILS', details);
+            commit('SET_FULL_NAME', details.name);
             commit('SET_LOGGED_IN', true);
         },
         logout({commit}) {

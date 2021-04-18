@@ -11,7 +11,7 @@
                             <el-input v-model="form.username" placeholder="Email"></el-input>
                         </el-form-item>
                         <el-form-item label="Hasło">
-                            <el-input v-model="form.password" placeholder="Hasło"></el-input>
+                            <el-input v-model="form.password" placeholder="Hasło" show-password></el-input>
                         </el-form-item>
                         <el-form-item>
                             <el-checkbox>Zapamiętaj mnie</el-checkbox>

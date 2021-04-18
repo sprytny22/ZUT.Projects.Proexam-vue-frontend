@@ -4,16 +4,10 @@
         default-active="2"
         class="sidebar"
         :router="true">
-      <el-menu-item index="/users" :route="{name: 'users'}">
-        <span>Użytkownicy</span>
-      </el-menu-item>
-      <el-menu-item index="/groups" :route="{name: 'groups'}">
-        <span>Grupy</span>
-      </el-menu-item>
       <el-menu-item index="/exams" :route="{name: 'exams'}">
         <span>Egzaminy</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="/admin" :route="{name: 'admin'}" v-if="$isGranted('ROLE_ADMIN')">
         <span>Panel administratora</span>
       </el-menu-item>
     </el-menu>

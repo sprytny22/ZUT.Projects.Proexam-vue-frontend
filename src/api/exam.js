@@ -40,8 +40,18 @@ export async function updateResult(id, data) {
     return response.data;
 }
 
+export async function getResults() {
+    const response = await axios.get(`/results`);
+    return response.data;
+}
+
 export async function closeResult(id) {
     const response = await axios.get(`/exam/close/${id}`);
+    return response.data;
+}
+
+export async function archiveExam(id) {
+    const response = await axios.get(`/exam/archive/${id}`);
     return response.data;
 }
 

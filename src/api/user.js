@@ -11,7 +11,7 @@ export async function getUser(id) {
 }
 
 export async function addUser(payload) {
-    const {data} = await axios.post(`/users`, payload);
+    const {data} = await axios.post(`/user`, payload);
     return data;
 }
 

@@ -12,15 +12,15 @@
                     </el-row>
                     <el-row>
                         <el-col :span="1"><el-checkbox v-model="checkboxMap.B" @change="handleCheckedAnswer"/></el-col>
-                        <el-col :span="20">A: {{question.B}}</el-col>
+                        <el-col :span="20">B: {{question.B}}</el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="1"><el-checkbox v-model="checkboxMap.C" @change="handleCheckedAnswer"/></el-col>
-                        <el-col :span="20">A: {{question.C}}</el-col>
+                        <el-col :span="20">C: {{question.C}}</el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="1"><el-checkbox v-model="checkboxMap.D" @change="handleCheckedAnswer"/></el-col>
-                        <el-col :span="20">A: {{question.D}}</el-col>
+                        <el-col :span="20">D: {{question.D}}</el-col>
                     </el-row>
                 </el-col>
             </el-row>

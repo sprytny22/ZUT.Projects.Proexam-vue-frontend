@@ -13,6 +13,46 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
+// Vue.locale('en', {
+//   datepicker: {
+//     now: 'now',
+//     today: 'today',
+//     cancel: 'cancel',
+//     clear: 'clear',
+//     confirm: 'confirm',
+//     selectDate: 'selectDate',
+//     selectTime: 'selectTime',
+//     startTime: 'startTime',
+//     endTime: 'endTime',
+//     year: 'year',
+//     month: 'Month',
+//     week: 'week',
+//     weeks: {
+//       sun: 'sun',
+//       mon: 'mon',
+//       tue: 'tue',
+//       wed: 'wed',
+//       thu: 'thu',
+//       fri: 'fri',
+//       sat: 'sat'
+//     },
+//     months: {
+//       jan: 'jan',
+//       feb: 'feb',
+//       mar: 'mar',
+//       apr: 'apr',
+//       may: 'may',
+//       jun: 'jun',
+//       jul: 'jul',
+//       aug: 'aug',
+//       sep: 'sep',
+//       oct: 'oct',
+//       nov: 'nov',
+//       dec: 'dec'
+//     }
+//   }
+// });
+
 axios.defaults.baseURL = process.env.VUE_APP_API_HOST;
 // axios.defaults.withCredentials = true;
 

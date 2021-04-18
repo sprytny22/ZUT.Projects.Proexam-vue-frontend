@@ -1,4 +1,4 @@
-import { getExams, joinExam, watchList } from '../../api/exam';
+import { getExams, joinExam, watchList, getResults } from '../../api/exam';
 import { fixExamData } from '../../helpers'
 
 export default {
@@ -7,12 +7,14 @@ export default {
         currentResultId: null,
         currentExamName: null,
         currentTestName: null,
+        results: [],
         questions: [],
 
         watchExamUsers: null
     },
     getters: {
         EXAMS: state => fixExamData(state.exams),
+        RESULTS: state => state.results,
         CURRENT_RESULT_ID: state => state.currentResultId,
         CURRENT_EXAM_NAME: state => state.currentExamName,
         CURRENT_TEST_NAME: state => state.currentTestName,
@@ -22,6 +24,9 @@ export default {
     mutations: {
         SET_EXAMS(state, payload) {
             state.exams = payload;
+        },
+        SET_RESULTS(state, payload) {
+            state.results = payload;
         },
         SET_CURRENT_EXAM_NAME(state, payload) {
             state.currentExamName = payload;
@@ -44,6 +49,11 @@ export default {
             const exams = await getExams();
 
             commit('SET_EXAMS', exams)
+        },
+        async GET_RESULTS({commit}) {
+            const results = await getResults();
+
+            commit('SET_RESULTS', results);
         },
         async START_EXAM({commit}, examId) {
             const openedExam = await joinExam(examId);

@@ -2,7 +2,7 @@
     <div>
         <el-row>
             <el-col :span="12"><h3>{{examName}}</h3></el-col>
-            <el-col :span="6"><h3>Imie i nazwisko</h3></el-col>
+            <el-col :span="6"><h3>{{userFullName}}</h3></el-col>
             <el-col :span="6"><h3>Czas</h3></el-col>
         </el-row>
         <el-row>
@@ -58,7 +58,8 @@
                 resultId: 'CURRENT_RESULT_ID',
                 questions: 'CURRENT_QUESTIONS',
                 examName: 'CURRENT_EXAM_NAME',
-                testName: 'CURRENT_TEST_NAME'
+                testName: 'CURRENT_TEST_NAME',
+                userFullName: 'USER_FULL_NAME',
             })
         },
         created() {
