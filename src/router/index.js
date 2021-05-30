@@ -13,6 +13,7 @@ import Main from '../components/Exam/Main'
 import Watch from '../components/Exam/Watch'
 import WatchList from '../components/Exam/WatchList'
 import Admin from '../components/Admin/Admin';
+import Review from '../components/Exam/Review';
 
 
 Vue.use(VueRouter);
@@ -82,6 +83,11 @@ const routes = [
         path: "/admin",
         name: "admin",
         component: Admin
+    },
+    {
+        path: "/review/:id",
+        name: "review",
+        component: Review
     },
     // admin
 ]

@@ -55,5 +55,18 @@ export async function archiveExam(id) {
     return response.data;
 }
 
+export async function getReviewAnswers(resultId) {
+    const response = await axios.get(`/exam/review/${resultId}`);
+    return response.data;
+}
+
+export async function sendReview(resultId, payload) {
+    const response = await axios.post(`/exam/review/${resultId}`, payload);
+    return response.data;
+}
+
+// sendReview
+
+// getReviewAnswers
 
 

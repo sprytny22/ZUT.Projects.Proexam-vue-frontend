@@ -48,26 +48,34 @@
             <el-tab-pane label="Rezultaty">
                 <el-card class="box-card my-box-card" v-for="(result,index) in results" :key="index">
                     <el-row>
-                        <el-col :span="24">
+                        <el-col :span="20">
                             <h4>{{index+1}}. {{result.examName}}</h4>
+                        </el-col>
+                        <el-col :span="4" >
+                            <bounce-loader v-if="result.suspect" :loading="true" :color="'#ff0000'" :size="'1px'"></bounce-loader>
                         </el-col>
                     </el-row>
                     <el-row>
-                        <el-col :span="24">
+                        <el-col :span="20">
                             Test: {{result.testName}}
+                        </el-col>
+                        <el-col :span="4">
+                            <div>
+                                <el-button type="info" plain icon="el-icon-document-checked" v-if="result.passed && result.status !== 'close_marked' && $isGranted('ROLE_EXAMER')" @click="onClickResult(result.id)"></el-button>
+                            </div>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="6">
                             {{result.fullname}}
                         </el-col>
-                        <el-col :span="6">
+                        <el-col :span="4">
                             Liczba pytań: {{result.numberOfAnswers}}
                         </el-col>
-                        <el-col :span="6">
+                        <el-col :span="4">
                             Wynik: {{result.pass}}/{{result.toPass}} (%)
                         </el-col>
-                        <el-col :span="6">
+                        <el-col :span="4">
                             <div v-if="result.passed && result.status === 'close_marked'">
                                 <span style="color: darkgreen;">Zaliczony.</span>
                             </div>
@@ -88,9 +96,14 @@
 <script>
     import { mapGetters, mapActions } from 'vuex';
     import { confirmExam, startExam, archiveExam } from '../../api/exam';
+    import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
+
 
     export default {
         name: "ExamInfos",
+        components: {
+            BounceLoader
+        },
         computed: {
             ...mapActions({
                 isGranted: 'isGranted'
@@ -103,6 +116,7 @@
         data() {
             return {
                 loading: false,
+                isSuspect: false,
             }
         },
         methods: {
@@ -167,7 +181,7 @@
                     await this.$store.dispatch('START_EXAM', exam.id);
                     this.$router.push('main');
                 } catch (error) {
-                    this.$message.error('Oops, coś poszło nie tak.')
+                    this.$message.error('Nie można dołączyć do egzaminu.')
                 }
             },
             handleResult(exam) {
@@ -217,12 +231,20 @@
                 }
 
                 this.$store.dispatch("GET_EXAMS")
+            },
+            onClickResult(id) {
+                console.log(id);
+                this.$router.push({
+                    name: 'review',
+                    params: {
+                        id: id
+                    }
+                });
             }
         },
         mounted () {
-            this.$store.dispatch("GET_EXAMS");
-            this.$store.dispatch("GET_RESULTS");
-
+             this.$store.dispatch("GET_EXAMS");
+             this.$store.dispatch("GET_RESULTS");
         }
     }
 </script>
